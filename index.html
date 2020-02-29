@@ -21,9 +21,10 @@
 
     var baseUrl = "http://146.185.154.90:8000/blog/john.doe.sv@gmail.com/";
 
-    $.get(baseUrl + "profile") 
+    $.get(baseUrl + "profile")
         .then(function (result) {
             $("#user_name").text(result.firstName + " " + result.lastName);
+            
         });
 
 
