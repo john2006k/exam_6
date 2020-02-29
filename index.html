@@ -27,25 +27,19 @@
             $("#user_name").text(result.firstName + " " + result.lastName);
         });
 
-
-
-    $("#save_name").on("click", function () {
+    $("#save_name").on("click", function(){
         $.post(baseUrl + "profile", {
             firstName: $("#firstName").val(),
             lastName: $("#lastName").val()
-        }).then(function (result) {
+        }).then(function(result) {
             $("#user_name").text(result.firstName + " " + result.lastName);
-            $("#firstName").val("");
-            $("#lastName").val("");
-            $(".modal").css({display: "none"})
+        })
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $(".modal").css({display: "none"})
+    });
 
-        });
-    })
 
-    $.get(baseUrl + "posts")
-        .then(function (result) {
-            console.log(result);
-        });
 
 </script>
 </body>
