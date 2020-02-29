@@ -6,13 +6,47 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<div class="container">
 
+    <div class="wrapper_for_one_line">
 
+        <div class="wrapper_user_name">
+            <h2 id="user_name"></h2>
+            <div id="basic-modal1" class="modal">
+                <h3>Edit profile</h3>
+                <p class="firstName">First Name: <input type="text" id="firstName"></p>
+                <p class="lastName">Last Name: <input type="text" id="lastName"></p>
+                <button id="save_name">Save</button>
+            </div>
+            <button class="redact_name btn btn-success open-modal" href="#basic-modal1">
+                Редактировать Имя
+            </button>
+        </div>
 
-<script src="js/jquery-3.4.1.min.js" ></script>
+        <div id="basic-modal2" class="modal">
+            <h3>Follow user</h3>
+            <p class="email">Email: <input type="text" id="email"></p>
+            <button id="add_email">Add</button>
+        </div>
+
+        <button class="subscribe btn-success open-modal" href="#basic-modal2">Follow user</button>
+        <div class="list_subscribe"></div>
+    </div>
+
+    <div class="wrapper_for_two_line">
+        <textarea name="message" id="message" cols="80" rows="1" placeholder="Enter your message"></textarea>
+        <button id="send_message">Send</button>
+    </div>
+
+    <div class="wrapper_for_posts"></div>
+
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/jquery.leanModal.min.js"></script>
 
 <script>
@@ -23,15 +57,15 @@
     var baseUrl = "http://146.185.154.90:8000/blog/john.doe.sv@gmail.com/";
 
     $.get(baseUrl + "profile")
-        .then(function(result) {
+        .then(function (result) {
             $("#user_name").text(result.firstName + " " + result.lastName);
         });
 
-    $("#save_name").on("click", function(){
+    $("#save_name").on("click", function () {
         $.post(baseUrl + "profile", {
             firstName: $("#firstName").val(),
             lastName: $("#lastName").val()
-        }).then(function(result) {
+        }).then(function (result) {
             $("#user_name").text(result.firstName + " " + result.lastName);
         })
         $("#firstName").val("");
@@ -39,13 +73,13 @@
         $(".modal").css({display: "none"})
     });
 
-    $("#add_email").on("click", function() {
+    $("#add_email").on("click", function () {
         $.post(baseUrl + "subscribe", {
             email: $("#email").val()
         })
-            .then(function(result) {
+            .then(function (result) {
                 $.get(baseUrl + "subscribe")
-                    .then(function(res){
+                    .then(function (res) {
                         for (var i = 0; i < res.length; i++) {
                             console.log(res[i].email);
                         }
@@ -55,9 +89,9 @@
             })
     });
 
-    setInterval(function() {
+    setInterval(function () {
         $.get(baseUrl + "posts")
-            .then(function(result) {
+            .then(function (result) {
                 if ($(".wrapper_for_posts").empty()) {
                     for (var i = 0; i < result.length; i++) {
                         $(".wrapper_for_posts").prepend(
@@ -74,7 +108,7 @@
                     }
                 } else {
                     $.get(baseUrl + "posts?datetime=" + result[result.length - 1].datetime)
-                        .then(function(result) {
+                        .then(function (result) {
                             for (var i = 0; i < result.length; i++) {
                                 $(".wrapper_for_posts").prepend(
                                     "<div class='message'><h4><b>" +
@@ -93,10 +127,10 @@
             });
     }, 2000);
 
-    $("#send_message").on("click", function(){
+    $("#send_message").on("click", function () {
         $.post(baseUrl + "posts", {
             message: $("#message").val()
-        }).then(function(result) {
+        }).then(function (result) {
             $("#message").val("");
             console.log(result);
         });

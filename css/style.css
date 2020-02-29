@@ -1,0 +1,47 @@
+.container {
+  width: 700px;
+  margin: 0 auto;
+}
+#lean_overlay {
+  position: fixed;
+  z-index: 100;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none;
+}
+#basic-modal1, #basic-modal2 {
+  display: none;
+}
+.modal {
+  width: 600px;
+  height: 200px;
+  padding: 30px;
+  display: none;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
+}
+.wrapper_user_name {
+  width: 300px;
+  display: flex;      
+  justify-content: space-around;
+}
+.wrapper_for_one_line, .wrapper_for_two_line {
+  display: flex;      
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.wrapper_for_posts {
+  width: 700px;
+  height: 700px;
+  border: 1px dashed #000;
+  overflow: scroll;
+}
+.message {
+  border: 1px solid #000;
+  padding: 5px;
+  margin: 15px;
+}
