@@ -49,11 +49,49 @@
                         for (var i = 0; i < res.length; i++) {
                             console.log(res[i].email);
                         }
-                    })
+                    });
                 $("#email").val("");
                 $(".modal").css({display: "none"})
             })
-    })
+    });
+
+    setInterval(function() {
+        $.get(baseUrl + "posts")
+            .then(function(result) {
+                if ($(".wrapper_for_posts").empty()) {
+                    for (var i = 0; i < result.length; i++) {
+                        $(".wrapper_for_posts").prepend(
+                            "<div class='message'><h4><b>" +
+                            result[i].user.firstName + " " + result[i].user.lastName +
+                            " said:</b></h4>" +
+                            "<h2>" +
+                            result[i].message +
+                            "</h2>" +
+                            "<p>" +
+                            result[i].datetime +
+                            "</p></div>"
+                        )
+                    }
+                } else {
+                    $.get(baseUrl + "posts?datetime=" + result[result.length - 1].datetime)
+                        .then(function(result) {
+                            for (var i = 0; i < result.length; i++) {
+                                $(".wrapper_for_posts").prepend(
+                                    "<div class='message'><h4><b>" +
+                                    result[i].user.firstName + " " + result[i].user.lastName +
+                                    " said:</b></h4>" +
+                                    "<h2>" +
+                                    result[i].message +
+                                    "</h2>" +
+                                    "<p>" +
+                                    result[i].datetime +
+                                    "</p></div>"
+                                )
+                            }
+                        })
+                }
+            });
+    }, 1000);
 
     $("#send_message").on("click", function(){
         $.post(baseUrl + "posts", {
