@@ -39,7 +39,22 @@
         $(".modal").css({display: "none"})
     });
 
+    $("#add_email").on("click", function() {
+        $.post(baseUrl + "subscribe", {
+            email: $("#email").val()
+        })
+            .then(function(result) {
+                $.get(baseUrl + "subscribe")
+                    .then(function(res){
+                        for (var i = 0; i < res.length; i++) {
+                            console.log(res[i].email);
+                        }
+                    })
+                $("#email").val("");
+                $(".modal").css({display: "none"})
+            })
 
+    })
 
 </script>
 </body>
