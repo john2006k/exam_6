@@ -55,6 +55,15 @@
             })
     })
 
+    $("#send_message").on("click", function(){
+        $.post(baseUrl + "posts", {
+            message: $("#message").val()
+        }).then(function(result) {
+            $("#message").val("");
+            console.log(result);
+        });
+    })
+
 </script>
 </body>
 </html>
