@@ -30,7 +30,7 @@
 
 
     $("#save_name").on("click", function () {
-        $.post(baseUrl + "profile", {  
+        $.post(baseUrl + "profile", {
             firstName: $("#firstName").val(),
             lastName: $("#lastName").val()
         }).then(function (result) {
@@ -41,6 +41,11 @@
 
         });
     })
+
+    $.get(baseUrl + "posts")
+        .then(function (result) {
+            console.log(result);
+        });
 
 </script>
 </body>
